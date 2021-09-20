@@ -9,3 +9,10 @@ A simple music bot for Discord that can be self-hosted.
 `skip` - Skip the current song  
 `loop` - Loop the queue  
 `leave` - Clear the queue and leave the voice channel  
+
+## Required Environment Variables
+```
+TOKEN=<Bot token>
+CLIENT_ID=<Bot user id>
+GUILD_ID=<Server id>
+```
