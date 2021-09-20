@@ -1,12 +1,22 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
+const { Player } = require('discord-player');
 
 // Initialize dotenv
 const dotenv = require('dotenv');
 dotenv.config();
 
 // Create a new client instance
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_VOICE_STATES,
+  ],
+});
+
+// Create a new Player (you don't need any API Key)
+const player = new Player(client);
 
 // Add commands
 client.commands = new Collection();
@@ -33,7 +43,7 @@ client.on('interactionCreate', async (interaction) => {
   if (!command) return;
 
   try {
-    await command.execute(interaction);
+    await command.execute(interaction, player);
   } catch (error) {
     console.error(error);
     await interaction.reply({
