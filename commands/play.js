@@ -6,8 +6,8 @@ module.exports = {
     .setDescription('Searches and plays a song')
     .addStringOption((option) =>
       option
-        .setName('searchterm')
-        .setDescription('Term to search on youtube')
+        .setName('query')
+        .setDescription('Query to search for')
         .setRequired(true)
     ),
   async execute(interaction, player) {
@@ -26,7 +26,7 @@ module.exports = {
         ephemeral: true,
       });
 
-    const query = interaction.options.getString('searchterm');
+    const query = interaction.options.getString('query');
     const queue = player.createQueue(interaction.guild, {
       metadata: {
         channel: interaction.channel,
