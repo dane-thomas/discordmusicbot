@@ -20,13 +20,21 @@ const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 
 (async () => {
   try {
-    await rest.put(
-      Routes.applicationGuildCommands(
-        process.env.CLIENT_ID,
-        process.env.GUILD_ID
-      ),
-      { body: commands }
-    );
+    if (process.env.DEPLOY_ENV === 'production') {
+      console.log('Deploying commands globally');
+      await rest.put(Routes.applicationCommands(process.env.CLIENT_ID), {
+        body: commands,
+      });
+    } else {
+      console.log(`Deploying commands for server: ${process.env.GUILD_ID}`);
+      await rest.put(
+        Routes.applicationGuildCommands(
+          process.env.CLIENT_ID,
+          process.env.GUILD_ID
+        ),
+        { body: commands }
+      );
+    }
 
     console.log('Successfully registered application commands.');
   } catch (error) {
