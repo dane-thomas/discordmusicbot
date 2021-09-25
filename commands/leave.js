@@ -22,7 +22,7 @@ module.exports = {
 
     let response = '';
     try {
-      player.getQueue(interaction.guild).clear();
+      player.getQueue(interaction.guild).stop();
       response = 'Smell ya later';
     } catch (error) {
       response = 'Nothing playing';
