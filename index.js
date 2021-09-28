@@ -41,7 +41,7 @@ for (const file of commandFiles) {
 // When the client is ready, run this code
 client.once('ready', () => {
   // Start Koa server
-  app.listen(3000);
+  app.listen(process.env.PORT || 3000);
   console.log('Ready!');
 });
 
