@@ -12,7 +12,7 @@ A simple music bot for Discord that can be self-hosted.
 
 ## Required Environment Variables
 ```
-TOKEN=<Bot token>
+DISCORD_BOT_TOKEN=<Bot token>
 CLIENT_ID=<Bot user id>
-GUILD_ID=<Server id>
+GUILD_ID=<Server id> # If deploying to a specific server
 ```
