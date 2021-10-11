@@ -1,18 +1,10 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const { Player } = require('discord-player');
-const Koa = require('koa');
 
 // Initialize dotenv
 const dotenv = require('dotenv');
 dotenv.config();
-
-// Koa server definition for keep alive
-const app = new Koa();
-
-app.use(async (ctx) => {
-  ctx.body = 'We are alive';
-});
 
 // Create a new client instance
 const client = new Client({
@@ -40,8 +32,6 @@ for (const file of commandFiles) {
 
 // When the client is ready, run this code
 client.once('ready', () => {
-  // Start Koa server
-  app.listen(3000);
   console.log('Ready!');
 });
 
@@ -61,11 +51,6 @@ client.on('interactionCreate', async (interaction) => {
       ephemeral: true,
     });
   }
-});
-
-client.on('error', (error) => {
-  console.log('Discord bot encountered an error');
-  throw new Error(error);
 });
 
 // Login to Discord with your client's token
