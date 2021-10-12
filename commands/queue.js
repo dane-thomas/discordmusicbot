@@ -9,7 +9,7 @@ module.exports = {
     try {
       response = player.getQueue(interaction.guild).toString();
     } catch (error) {
-      response = 'Nothing in the queue... Use `/play` to add a song';
+      response = '❌ | Nothing playing... Use `/play` to add a song';
     }
     await interaction.reply(response);
   },

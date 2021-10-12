@@ -17,7 +17,7 @@ module.exports = {
         response = 'Looping current queue';
       }
     } catch (error) {
-      response = 'Nothing in the queue';
+      response = '❌ | Nothing playing!';
     }
     await interaction.reply(response);
   },

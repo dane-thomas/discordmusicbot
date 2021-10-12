@@ -8,9 +8,9 @@ module.exports = {
     let response = '';
     try {
       player.getQueue(interaction.guild).skip();
-      response = 'Song skipped 👍';
+      response = '👍 | Song skipped';
     } catch (error) {
-      response = 'Nothing to skip';
+      response = '❌ | Nothing playing!';
     }
     await interaction.reply(response);
   },

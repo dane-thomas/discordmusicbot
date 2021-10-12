@@ -7,9 +7,10 @@ module.exports = {
   async execute(interaction, player) {
     let response = '';
     try {
-      response = player.getQueue(interaction.guild).current.toString();
+      const queue = player.getQueue(interaction.guild);
+      response = queue.current.toString() + '\n' + queue.createProgressBar();
     } catch (error) {
-      response = 'Nothing playing';
+      response = '❌ | Nothing playing!';
     }
     await interaction.reply(response);
   },
