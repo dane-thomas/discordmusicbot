@@ -1,6 +1,7 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const { Player } = require('discord-player');
+const { registerPlayerEvents } = require('./player-events');
 
 // Initialize dotenv
 const dotenv = require('dotenv');
@@ -15,22 +16,24 @@ const client = new Client({
   ],
 });
 
-// Create a new Player (you don't need any API Key)
-const player = new Player(client);
+const player = new Player(client, {
+  ytdlOptions: {
+    quality: 'highestaudio',
+    highWaterMark: 1 << 25,
+  },
+});
 
 // Add commands
 client.commands = new Collection();
 const commandFiles = fs
   .readdirSync('./commands')
   .filter((file) => file.endsWith('.js'));
+
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
-  // Set a new item in the Collection
-  // With the key as the command name and the value as the exported module
   client.commands.set(command.data.name, command);
 }
 
-// When the client is ready, run this code
 client.once('ready', () => {
   console.log('Ready!');
 });
@@ -52,6 +55,12 @@ client.on('interactionCreate', async (interaction) => {
     });
   }
 });
+
+client.on('error', (error) => {
+  console.log('client error', error);
+});
+
+registerPlayerEvents(player);
 
 // Login to Discord with your client's token
 client.login(process.env.DISCORD_BOT_TOKEN);
